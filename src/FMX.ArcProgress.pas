@@ -44,9 +44,6 @@ type
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    // procedure ApplyStyleLookup; override;
-    // procedure ApplyStyle; override;
-    // procedure FreeStyle; override;
     property StartAngle: Single read FStartAngle write SetStartAngle;
     property EndAngle: Single read FEndAngle write SetEndAngle;
   published
@@ -116,31 +113,6 @@ end;
 
 { TArcProgress }
 
-// procedure TArcProgress.ApplyStyle;
-// begin
-// inherited;
-//
-// end;
-
-// procedure TArcProgress.ApplyStyleLookup;
-// begin
-// //if IsNeedStyleLookup then
-// begin
-// inherited;
-// if csDesigning in ComponentState then
-// begin
-// FAni.Start;
-// FAni.Stop;
-// end
-// else if (Enabled) and (FState = TProgressState.psIndeterminate) then
-// FAni.Start
-// else
-// FAni.Stop;
-// end;
-// // else
-// inherited;
-// end;
-
 constructor TArcProgress.Create(AOwner: TComponent);
 begin
   inherited;
@@ -154,8 +126,8 @@ begin
   TFloatAnimation(FAni).StartValue := 0;
   TFloatAnimation(FAni).StopValue := 360;
   TFloatAnimation(FAni).PropertyName := 'StartAngle';
-  TFloatAnimation(FAni).AnimationType:= TAnimationType.InOut;
-  TFloatAnimation(FAni).Interpolation:= TInterpolationType.Linear;
+  TFloatAnimation(FAni).AnimationType := TAnimationType.InOut;
+  TFloatAnimation(FAni).Interpolation := TInterpolationType.Linear;
   FBackgroundColor := TStrokeBrush.Create(TBrushKind.Solid, $FFE0E0E0);
   FProgressColor := TStrokeBrush.Create(TBrushKind.Solid, $FF1976D2);
   FMin := 0;
@@ -277,15 +249,15 @@ procedure TArcProgress.UpdatedAniProgress;
 begin
   if FAni <> nil then
   begin
-    if csDesigning in ComponentState then
+    if not(csDesigning in ComponentState) then
     begin
-      FAni.Start;
-      FAni.Stop;
+      if (Enabled) and (FState = TProgressState.psIndeterminate) then
+        FAni.Start
+      else
+        FAni.Stop;
     end
-    else if (Enabled) and (FState = TProgressState.psIndeterminate) then
-      FAni.Start
     else
-      FAni.Stop;
+    StartAngle:=0;
   end;
 end;
 
