@@ -35,7 +35,7 @@ type
     { protected declarations }
     procedure UpdatedAniProgress;
     procedure SetEnabled(const Value: Boolean); override;
-    procedure SetVisible(const Value: Boolean); virtual;
+    procedure SetVisible(const Value: Boolean); override;
     procedure Paint; override;
     procedure DoProcess(Sender: TObject);
 
@@ -257,7 +257,7 @@ begin
         FAni.Stop;
     end
     else
-    StartAngle:=0;
+      StartAngle := 0;
   end;
 end;
 
