@@ -3,7 +3,9 @@
 	"description": "",
 	"version": "1.0.0",
 	"homepage": "",
-	"mainsrc": "./",
-	"projects": [],
+	"mainsrc": "src/",
+	"projects": [
+		"ArcProgress.dproj"
+	],
 	"dependencies": {}
 }
